@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/asaf2/AndroidStudioProjects/GamerX/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/asaf2/AndroidStudioProjects/GamerX/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/asaf2/AndroidStudioProjects/GamerX/app/src/main/res/layout/fragment_log_in.xml" value="0.17777777777777778" />
         <entry key="..\:/Users/asaf2/AndroidStudioProjects/GamerX/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="..\:/Users/asaf2/AndroidStudioProjects/GamerX/app/src/main/res/layout/fragment_sign_up.xml" value="0.2624113475177305" />
+        <entry key="..\:/Users/asaf2/AndroidStudioProjects/GamerX/app/src/main/res/layout/mainactrivitiy.xml" value="0.17777777777777778" />
       </map>
     </option>
   </component>
