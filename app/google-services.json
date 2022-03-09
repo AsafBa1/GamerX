@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "89669998285",
+    "project_id": "gamerx-d1247",
+    "storage_bucket": "gamerx-d1247.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89669998285:android:61982002cdde373463fb84",
+        "android_client_info": {
+          "package_name": "com.example.gamerx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89669998285-ucos67nri7qnatp8buf0c7f19gfgrd0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpdYWneLtg4fVKErLi8RPme4lHKTTJiQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89669998285-ucos67nri7qnatp8buf0c7f19gfgrd0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
