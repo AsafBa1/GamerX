@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
     private TextView register;
+    private ProgressBar progressBar;
+    private Button logIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +23,7 @@ public class Login extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this,NewPost.class);
+                Intent intent = new Intent(Login.this,SignUp.class);
                 startActivity(intent);
             }
         });
