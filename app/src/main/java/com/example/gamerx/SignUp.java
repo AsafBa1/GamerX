@@ -3,6 +3,7 @@ package com.example.gamerx;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -37,7 +38,10 @@ public class SignUp extends AppCompatActivity {
         signBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 registerUser();
+                Intent intent = new Intent(SignUp.this,Login.class);
+                startActivity(intent);
             }
         });
 
@@ -97,11 +101,14 @@ public class SignUp extends AppCompatActivity {
                                        progressbar.setVisibility(View.GONE);
 
                                    }else{
-                                       Toast.makeText(SignUp.this,"Failed To Register User!",Toast.LENGTH_LONG).show();
+                                       Toast.makeText(SignUp.this,"Failed To Register User! Try Again",Toast.LENGTH_LONG).show();
                                        progressbar.setVisibility(View.GONE);
                                    }
                                }
                            });
+                       }else{
+                           Toast.makeText(SignUp.this,"Failed To Register User!",Toast.LENGTH_LONG).show();
+                           progressbar.setVisibility(View.GONE);
                        }
                     }
                 });
