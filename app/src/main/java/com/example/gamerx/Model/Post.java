@@ -1,8 +1,15 @@
 package com.example.gamerx.Model;
 
 public class Post {
-    String Title;
-    String Mbody;
+    String Title = "";
+    String Mbody = "";
+
+    public Post(){}
+
+    public Post(String title, String mbody) {
+        Title = title;
+        Mbody = mbody;
+    }
 
     public String getTitle() {
         return Title;

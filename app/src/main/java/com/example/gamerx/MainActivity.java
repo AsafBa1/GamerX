@@ -1,6 +1,9 @@
 package com.example.gamerx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,49 +14,45 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.gamerx.Model.Model;
+import com.example.gamerx.Model.Post;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-  MyAdapter adapter = new MyAdapter();
-   ListView list = findViewById(R.id.post_lists);
-    list.setAdapter(adapter);
+        RecyclerView list = findViewById(R.id.posts_list_rv);
+        list.setHasFixedSize(true);
+        list.setLayoutManager(new LinearLayoutManager(this));
 
 
     }
 
-    class MyAdapter extends BaseAdapter{
+    class MyViewHolder extends RecyclerView.ViewHolder{
 
-        @Override
-        public int getCount() {
-            return 2;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
+    }
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
+        @NonNull
         @Override
-        public Object getItem(int position) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return null;
         }
 
         @Override
-        public long getItemId(int position) {
-            return 0;
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null){
-                convertView = getLayoutInflater().inflate(R.layout.post_row,null);
-            }
-            TextView PostTitle = convertView.findViewById(R.id.row_title);
-            TextView PostInfo = convertView.findViewById(R.id.row_post_info);
-
-            PostTitle.setText("name" + position);
-            PostInfo.setText("name" + position);
-            return convertView;
+        public int getItemCount() {
+            return 0;
         }
     }
 
