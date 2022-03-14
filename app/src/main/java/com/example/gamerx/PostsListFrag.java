@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,12 @@ public class PostsListFrag extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Log.d("TAG","row was clicked " + position);
+                String id = data.get(position).getTtitleId();
+                PostDetailsFrag frag = PostDetailsFrag.newInstance(id);
+                FragmentTransaction tran = getParentFragmentManager().beginTransaction();
+                tran.add(R.id.base_frag_cont,frag);
+                tran.addToBackStack("");
+                tran.commit();
             }
         });
         return view;
@@ -47,9 +54,11 @@ public class PostsListFrag extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView titleTv;
         TextView infoTv;
+        TextView postIdTv;
 
         public MyViewHolder(@NonNull View itemView, PostsListFrag.OnItemClickListener listener) {
             super(itemView);
+            postIdTv = itemView.findViewById(R.id.row_post_id);
             titleTv = itemView.findViewById(R.id.row_title);
             infoTv = itemView.findViewById(R.id.row_post_info);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +89,7 @@ public class PostsListFrag extends Fragment {
         public void onBindViewHolder(@NonNull PostsListFrag.MyViewHolder holder, int position) {
             Post post = data.get(position);
             holder.titleTv.setText(post.getTitle());
+            holder.postIdTv.setText(post.getTtitleId());
             holder.infoTv.setText(post.getMbody());
         }
 

@@ -10,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class NewPost extends Fragment {
-    TextView titleTv;
+    TextView titleTv,postId;
+    EditText bodyTv;
     Button nextBtn;
     private String title;
 
@@ -23,8 +25,9 @@ public class NewPost extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
-        titleTv = view.findViewById(R.id.new_title_check);
-        nextBtn = view.findViewById(R.id.switch_btn);
+        postId = view.findViewById(R.id.new_post_id);
+        titleTv = view.findViewById(R.id.new_title_post);
+        nextBtn = view.findViewById(R.id.save_new_post);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
