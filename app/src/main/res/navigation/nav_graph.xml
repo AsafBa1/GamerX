@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFrag2">
+    <fragment
+        android:id="@+id/menuFrag2"
+        android:name="com.example.gamerx.MenuFrag"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFrag2_to_postsListFrag2"
+            app:destination="@id/postsListFrag2" />
+        <action
+            android:id="@+id/action_menuFrag2_to_profileFrag2"
+            app:destination="@id/profileFrag2" />
+    </fragment>
+    <fragment
+        android:id="@+id/postsListFrag2"
+        android:name="com.example.gamerx.PostsListFrag"
+        android:label="fragment_posts_list"
+        tools:layout="@layout/fragment_posts_list" >
+        <action
+            android:id="@+id/action_postsListFrag2_to_postDetailsFrag2"
+            app:destination="@id/postDetailsFrag2" />
+        <action
+            android:id="@+id/action_postsListFrag2_to_newPost2"
+            app:destination="@id/newPost2" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFrag2"
+        android:name="com.example.gamerx.ProfileFrag"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/newPost2"
+        android:name="com.example.gamerx.NewPost"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post" />
+    <fragment
+        android:id="@+id/postDetailsFrag2"
+        android:name="com.example.gamerx.PostDetailsFrag"
+        android:label="fragment_post_details"
+        tools:layout="@layout/fragment_post_details" >
+        <action
+            android:id="@+id/action_postDetailsFrag2_to_editPost2"
+            app:destination="@id/editPost2" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPost2"
+        android:name="com.example.gamerx.EditPost"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post" />
+</navigation>

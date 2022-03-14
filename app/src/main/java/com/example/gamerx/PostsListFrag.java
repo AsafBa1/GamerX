@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.gamerx.Model.Model;
@@ -40,14 +42,11 @@ public class PostsListFrag extends Fragment {
         adapter.setOnItemClickListener(new PostsListFrag.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.d("TAG","row was clicked " + position);
-                String id = data.get(position).getTtitleId();
-                PostDetailsFrag frag = PostDetailsFrag.newInstance(id);
-                FragmentTransaction tran = getParentFragmentManager().beginTransaction();
-                tran.add(R.id.base_frag_cont,frag);
-                tran.addToBackStack("");
-                tran.commit();
             }
+        });
+        ImageButton addBtn = view.findViewById(R.id.postlist_add_post);
+        addBtn.setOnClickListener(v -> {
+           // Navigation.findNavController();
         });
         return view;
     }
