@@ -3,6 +3,7 @@ package com.example.gamerx;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.Button;
 
 
 public class MenuFrag extends Fragment {
-    Button toLost;
+    Button toList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -19,7 +20,8 @@ public class MenuFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
 
-        toLost = view.findViewById(R.id.menu_post_btn);
+        toList = view.findViewById(R.id.menu_post_btn);
+        toList.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menuFrag2_to_postsListFrag2));
         return view;
     }
 }

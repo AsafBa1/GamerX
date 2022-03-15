@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import java.util.List;
 
 public class PostsListFrag extends Fragment {
     List<Post> data;
+    Button backBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,12 +43,14 @@ public class PostsListFrag extends Fragment {
 
         adapter.setOnItemClickListener(new PostsListFrag.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(View v ,int position) {
             }
         });
         ImageButton addBtn = view.findViewById(R.id.postlist_add_post);
-        addBtn.setOnClickListener(v -> {
-           // Navigation.findNavController();
+        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_postsListFrag2_to_postDetailsFrag2));
+        backBtn = view.findViewById(R.id.posts_back_button);
+        backBtn.setOnClickListener((v)->{
+            Navigation.findNavController(v).navigateUp();
         });
         return view;
     }
@@ -64,12 +68,12 @@ public class PostsListFrag extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    listener.onItemClick(pos);
+                    listener.onItemClick(v,pos);
                 }
             });
         }
     }
-    interface OnItemClickListener{void onItemClick(int position);}
+    interface OnItemClickListener{void onItemClick(View v,int position);}
 
     class MyAdapter extends RecyclerView.Adapter<PostsListFrag.MyViewHolder>{
         PostsListFrag.OnItemClickListener listener;

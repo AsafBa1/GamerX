@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_postDetailsFrag2_to_editPost2"
             app:destination="@id/editPost2" />
+        <argument
+            android:name="PostTitle"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editPost2"
