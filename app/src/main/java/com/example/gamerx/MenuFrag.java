@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,4 +25,5 @@ public class MenuFrag extends Fragment {
         toList.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menuFrag2_to_postsListFrag2));
         return view;
     }
+
 }

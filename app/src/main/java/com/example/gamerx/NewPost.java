@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class NewPost extends Fragment {
-    TextView titleTv,postId;
+    TextView titleTv;
     EditText bodyTv;
     Button nextBtn;
     private String title;
@@ -25,7 +25,6 @@ public class NewPost extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
-        postId = view.findViewById(R.id.new_post_id);
         titleTv = view.findViewById(R.id.new_title_post);
         nextBtn = view.findViewById(R.id.save_new_post);
         nextBtn.setOnClickListener(new View.OnClickListener() {

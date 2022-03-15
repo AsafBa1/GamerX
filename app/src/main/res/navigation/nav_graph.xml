@@ -48,11 +48,15 @@
             app:destination="@id/editPost2" />
         <argument
             android:name="PostTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="postid"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editPost2"
         android:name="com.example.gamerx.EditPost"
         android:label="fragment_edit_post"
-        tools:layout="@layout/fragment_edit_post" />
+        tools:layout="@layout/fragment_edit_post" /><action android:id="@+id/action_global_menuFrag2" app:destination="@id/menuFrag2"/>
 </navigation>

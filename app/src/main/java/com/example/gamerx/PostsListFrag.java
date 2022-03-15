@@ -44,10 +44,14 @@ public class PostsListFrag extends Fragment {
         adapter.setOnItemClickListener(new PostsListFrag.OnItemClickListener() {
             @Override
             public void onItemClick(View v ,int position) {
+                String postId = data.get(position).getTtitleId();
+                String posTitle = data.get(position).getTitle();
+                Navigation.findNavController(v).navigate(PostsListFragDirections.actionPostsListFrag2ToPostDetailsFrag2(posTitle,postId));
+
             }
         });
         ImageButton addBtn = view.findViewById(R.id.postlist_add_post);
-        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_postsListFrag2_to_postDetailsFrag2));
+        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_postsListFrag2_to_newPost2));
         backBtn = view.findViewById(R.id.posts_back_button);
         backBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigateUp();
