@@ -14,35 +14,35 @@
             app:destination="@id/postsListFrag2" />
         <action
             android:id="@+id/action_menuFrag2_to_profileFrag2"
-            app:destination="@id/profileFrag2" />
+            app:destination="@id/profile_menu" />
     </fragment>
     <fragment
         android:id="@+id/postsListFrag2"
         android:name="com.example.gamerx.PostsListFrag"
-        android:label="fragment_posts_list"
-        tools:layout="@layout/fragment_posts_list" >
+        android:label="List of Posts"
+        tools:layout="@layout/fragment_posts_list">
         <action
             android:id="@+id/action_postsListFrag2_to_postDetailsFrag2"
             app:destination="@id/postDetailsFrag2" />
         <action
             android:id="@+id/action_postsListFrag2_to_newPost2"
-            app:destination="@id/newPost2" />
+            app:destination="@id/add_menu" />
     </fragment>
     <fragment
-        android:id="@+id/profileFrag2"
+        android:id="@+id/profile_menu"
         android:name="com.example.gamerx.ProfileFrag"
-        android:label="fragment_profile"
+        android:label="Profile Settings"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/newPost2"
+        android:id="@+id/add_menu"
         android:name="com.example.gamerx.NewPost"
-        android:label="fragment_new_post"
+        android:label="New Post"
         tools:layout="@layout/fragment_new_post" />
     <fragment
         android:id="@+id/postDetailsFrag2"
         android:name="com.example.gamerx.PostDetailsFrag"
-        android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" >
+        android:label="Post Detailes"
+        tools:layout="@layout/fragment_post_details">
         <action
             android:id="@+id/action_postDetailsFrag2_to_editPost2"
             app:destination="@id/editPost2" />
@@ -57,6 +57,7 @@
     <fragment
         android:id="@+id/editPost2"
         android:name="com.example.gamerx.EditPost"
-        android:label="fragment_edit_post"
+        android:label="Edit Post"
         tools:layout="@layout/fragment_edit_post" /><action android:id="@+id/action_global_menuFrag2" app:destination="@id/menuFrag2"/>
+    <action android:id="@+id/action_global_profileFrag2" app:destination="@id/profile_menu" />
 </navigation>

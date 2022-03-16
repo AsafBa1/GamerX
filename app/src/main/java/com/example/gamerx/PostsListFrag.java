@@ -4,13 +4,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class PostsListFrag extends Fragment {
     List<Post> data;
+    NavController navController;
     Button backBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +37,6 @@ public class PostsListFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_posts_list, container, false);
 
         data = Model.instance.getAllPosts();
-
         RecyclerView list = view.findViewById(R.id.posts_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -56,6 +59,8 @@ public class PostsListFrag extends Fragment {
         backBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigateUp();
         });
+
+        setHasOptionsMenu(true);
         return view;
     }
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -104,5 +109,23 @@ public class PostsListFrag extends Fragment {
         public int getItemCount() {
             return data.size();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.posts_list_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(!super.onOptionsItemSelected(item)){
+            switch ((item.getItemId())){
+                case R.id.add_menu:
+                    Log.d("TAG","Add");
+                    break;
+            }
+        }
+        return true;
     }
 }

@@ -36,6 +36,7 @@ public class NewPost extends Fragment {
         if(title != null){
             titleTv.setText(title);
         }
+        //setHasOptionsMenu(true);
         return view;
     }
 
