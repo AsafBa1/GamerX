@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_menuFrag2_to_profileFrag2"
             app:destination="@id/profile_menu" />
+        <action
+            android:id="@+id/action_menuFrag2_to_login"
+            app:destination="@id/login" />
     </fragment>
     <fragment
         android:id="@+id/postsListFrag2"
@@ -60,4 +63,9 @@
         android:label="Edit Post"
         tools:layout="@layout/fragment_edit_post" /><action android:id="@+id/action_global_menuFrag2" app:destination="@id/menuFrag2"/>
     <action android:id="@+id/action_global_profileFrag2" app:destination="@id/profile_menu" />
+    <activity
+        android:id="@+id/login"
+        android:name="com.example.gamerx.Login"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>

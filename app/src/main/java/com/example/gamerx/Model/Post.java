@@ -1,9 +1,17 @@
 package com.example.gamerx.Model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Post {
+    @PrimaryKey
+    @NonNull
+    String Id = "";
     String Title = "";
     String Mbody = "";
-    String Id = "";
+
 
     public Post(){}
 
