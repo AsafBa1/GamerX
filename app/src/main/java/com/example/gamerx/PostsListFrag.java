@@ -28,20 +28,20 @@ import java.util.List;
 
 public class PostsListFrag extends Fragment {
     List<Post> data;
-    NavController navController;
     Button backBtn;
+    MyAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_posts_list, container, false);
 
-        data = Model.instance.getAllPosts();
+
         RecyclerView list = view.findViewById(R.id.posts_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        MyAdapter adapter = new MyAdapter();
+        adapter = new MyAdapter();
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new PostsListFrag.OnItemClickListener() {
@@ -59,8 +59,17 @@ public class PostsListFrag extends Fragment {
         });
 
         setHasOptionsMenu(true);
+        refresh();
         return view;
     }
+
+    private void refresh() {
+        Model.instance.getAllPosts((list)->{
+            data = list;
+            adapter.notifyDataSetChanged();
+        });
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView titleTv;
         TextView infoTv;
