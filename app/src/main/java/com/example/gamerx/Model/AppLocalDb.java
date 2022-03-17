@@ -9,7 +9,7 @@ import com.example.gamerx.MyApplication;
 
 @Database(entities = {Post.class}, version = 1)
 abstract class AppLocalDbRepository extends RoomDatabase {
-    public abstract PostDao studentDao();
+    public abstract PostDao postDao();
 }
 public class AppLocalDb{
    static public AppLocalDbRepository db =

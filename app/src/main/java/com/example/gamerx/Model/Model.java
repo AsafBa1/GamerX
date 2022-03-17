@@ -15,8 +15,9 @@ public class Model {
 
 
     public List<Post> getAllPosts(){
-        return null;
+       return AppLocalDb.db.postDao().getAll();
     }
+
     public void addPost(Post post){
 
     }
