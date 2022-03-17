@@ -53,8 +53,6 @@ public class PostsListFrag extends Fragment {
 
             }
         });
-        ImageButton addBtn = view.findViewById(R.id.postlist_add_post);
-        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_postsListFrag2_to_newPost2));
         backBtn = view.findViewById(R.id.posts_back_button);
         backBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigateUp();
@@ -107,6 +105,9 @@ public class PostsListFrag extends Fragment {
 
         @Override
         public int getItemCount() {
+            if(data == null){
+                return 0;
+            }
             return data.size();
         }
     }
