@@ -43,6 +43,11 @@ public class Model {
     }
     public void addPost(Post post,AddPostListener listener){
         executor.execute(()->{
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             AppLocalDb.db.postDao().insertAll(post);
             mainThread.post(()->{
                 listener.onComplete();

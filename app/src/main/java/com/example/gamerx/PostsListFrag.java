@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gamerx.Model.Model;
@@ -30,13 +31,14 @@ public class PostsListFrag extends Fragment {
     List<Post> data;
     Button backBtn;
     MyAdapter adapter;
+    ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_posts_list, container, false);
 
-
+        progressBar = view.findViewById(R.id.post_list_pg);
         RecyclerView list = view.findViewById(R.id.posts_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,9 +66,11 @@ public class PostsListFrag extends Fragment {
     }
 
     private void refresh() {
+        progressBar.setVisibility(View.VISIBLE);
         Model.instance.getAllPosts((list)->{
             data = list;
             adapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.GONE);
         });
     }
 

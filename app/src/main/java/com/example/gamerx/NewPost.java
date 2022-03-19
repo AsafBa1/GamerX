@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gamerx.Model.Model;
@@ -23,7 +24,7 @@ public class NewPost extends Fragment {
     EditText bodyEt;
     EditText postId;
     Button saveBtn;
-
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +32,7 @@ public class NewPost extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
+        progressBar = view.findViewById(R.id.new_post_pb);
         postId = view.findViewById(R.id.new_post_id);
         titleEt = view.findViewById(R.id.new_title_post);
         bodyEt = view.findViewById(R.id.new_post_body);
@@ -43,6 +45,8 @@ public class NewPost extends Fragment {
     }
 
     private void save() {
+        progressBar.setVisibility(View.VISIBLE);
+        saveBtn.setEnabled(false);
         String id = postId.getText().toString();
         String title = titleEt.getText().toString();
         String body = bodyEt.getText().toString();
