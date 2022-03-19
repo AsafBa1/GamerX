@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/post_det_title" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/new_post_imagv"
         android:layout_width="304dp"
         android:layout_height="157dp"
         android:layout_marginTop="28dp"
@@ -49,7 +49,7 @@
         android:text="Body of Post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_imagv" />
 
     <Button
         android:id="@+id/save_new_post"
