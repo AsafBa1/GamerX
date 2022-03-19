@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.gamerx.Model.Model;
+import com.example.gamerx.Model.Post;
 
 public class NewPost extends Fragment {
     EditText titleEt;
@@ -43,6 +47,10 @@ public class NewPost extends Fragment {
         String title = titleEt.getText().toString();
         String body = bodyEt.getText().toString();
         Log.d("TAG","saved name:" + title);
+        Post post = new Post(id,title,body);
+        Model.instance.addPost(post,()->{
+            Navigation.findNavController(titleEt).navigateUp();
+        });
     }
 
 }

@@ -26,6 +26,11 @@ public class Model {
 
     public void getAllPosts(GetAllPostsListener listener){
         executor.execute(()->{
+            try {
+                Thread.sleep(3000);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
            List<Post> list = AppLocalDb.db.postDao().getAll();
            mainThread.post(()->{
                listener.onComplete(list);
@@ -33,8 +38,16 @@ public class Model {
         });
     }
 
-    public void addPost(Post post){
-
+    public interface AddPostListener{
+        void onComplete();
+    }
+    public void addPost(Post post,AddPostListener listener){
+        executor.execute(()->{
+            AppLocalDb.db.postDao().insertAll(post);
+            mainThread.post(()->{
+                listener.onComplete();
+            });
+        });
     }
 
     public Post getPostById(String postTitleId) {

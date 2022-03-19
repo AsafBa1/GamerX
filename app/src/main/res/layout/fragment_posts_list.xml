@@ -25,4 +25,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/post_list_pg"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="129dp"
+        android:layout_height="102dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/posts_list_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
