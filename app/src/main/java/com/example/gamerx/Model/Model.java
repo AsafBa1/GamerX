@@ -12,6 +12,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Model {
+    ModelFireBase modelFireBase;
+
     public static final Model instance = new Model();
     Executor executor =Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
@@ -25,38 +27,18 @@ public class Model {
    }
 
     public void getAllPosts(GetAllPostsListener listener){
-        executor.execute(()->{
-            try {
-                Thread.sleep(3000);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-           List<Post> list = AppLocalDb.db.postDao().getAll();
-           mainThread.post(()->{
-               listener.onComplete(list);
-           });
-        });
+        modelFireBase.getAllPosts(listener);
     }
 
     public interface AddPostListener{
         void onComplete();
     }
     public void addPost(Post post,AddPostListener listener){
-        executor.execute(()->{
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            AppLocalDb.db.postDao().insertAll(post);
-            mainThread.post(()->{
-                listener.onComplete();
-            });
-        });
+        modelFireBase.addPost(post,listener);
     }
 
     public Post getPostById(String postTitleId) {
-
+        modelFireBase.getPostById(postTitleId);
         return null;
     }
 }
