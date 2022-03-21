@@ -69,7 +69,8 @@ public class PostsListFrag extends Fragment {
             public void onItemClick(View v ,int position) {
                 String postId = viewModel.getData().getValue().get(position).getTtitleId();
                 String posTitle = viewModel.getData().getValue().get(position).getTitle();
-                Navigation.findNavController(v).navigate(PostsListFragDirections.actionPostsListFrag2ToPostDetailsFrag2(posTitle,postId));
+                String postbody = viewModel.getData().getValue().get(position).getMbody();
+                Navigation.findNavController(v).navigate(PostsListFragDirections.actionPostsListFrag2ToPostDetailsFrag2(posTitle,postId,postbody));
 
             }
         });
