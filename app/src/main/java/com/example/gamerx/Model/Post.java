@@ -4,21 +4,36 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 @Entity
 public class Post {
+
+
+    final public static String COLLECTION_NAME = "Posts";
     @PrimaryKey
     @NonNull
     String Id = "";
     String Title = "";
-    String Mbody = "";
+    String Body = "";
 
 
     public Post(){}
 
-    public Post(String id,String title, String mbody) {
+    public Post(String id,String title, String body){
         Id = id;
         Title = title;
-        Mbody = mbody;
+        Body = body;
+    }
+
+    public Post(String title, String body) {
+        Title = title;
+        Body = body;
     }
 
     public String getTitle() {
@@ -29,12 +44,29 @@ public class Post {
     }
 
     public String getMbody() {
-        return Mbody;
+        return Body;
     }
-    public void setMbody(String mbody) {
-        Mbody = mbody;
+    public void setMbody(String body) {
+        Body = body;
     }
 
     public String getTtitleId() { return Id;}
     public void setId(String id) { Id = id; }
+
+    public Map<String,Object> toJson(){
+        Map<String,Object> json = new HashMap<String,Object>();
+        json.put("id",Id);
+        json.put("title",Title);
+        json.put("body",Body);
+        return json;
+    }
+
+    public static Post create(Map<String, Object> json) {
+        String id = (String) json.get("id");
+        String title = (String) json.get("title");
+        String body = (String) json.get("body");
+
+        Post post = new Post(id,title,body);
+        return post;
+    }
 }

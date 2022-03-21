@@ -2,17 +2,15 @@ package com.example.gamerx.Model;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.TextView;
 
 import androidx.core.os.HandlerCompat;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Model {
-    ModelFireBase modelFireBase;
+    ModelFireBase modelFireBase = new ModelFireBase();
 
     public static final Model instance = new Model();
     Executor executor =Executors.newFixedThreadPool(1);
@@ -37,8 +35,17 @@ public class Model {
         modelFireBase.addPost(post,listener);
     }
 
-    public Post getPostById(String postTitleId) {
-        modelFireBase.getPostById(postTitleId);
+    public interface GetPostById{
+        void onComplete(Post post);
+    }
+    public Post getPostById(String postTitleId,GetPostById listener) {
+        modelFireBase.getPostById(postTitleId,listener);
         return null;
+    }
+    public interface AddUserListener{
+        void onComplete();
+    }
+    public void addUser(User user, AddUserListener listener){
+        modelFireBase.addUser(user,listener);
     }
 }

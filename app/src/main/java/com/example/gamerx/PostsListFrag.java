@@ -8,6 +8,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,14 +32,21 @@ public class PostsListFrag extends Fragment {
     List<Post> data;
     Button backBtn;
     MyAdapter adapter;
-    ProgressBar progressBar;
+    SwipeRefreshLayout swipeRefresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_posts_list, container, false);
 
-        progressBar = view.findViewById(R.id.post_list_pg);
+
+        swipeRefresh = view.findViewById(R.id.list_swipe);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
         RecyclerView list = view.findViewById(R.id.posts_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -66,11 +74,11 @@ public class PostsListFrag extends Fragment {
     }
 
     private void refresh() {
-        progressBar.setVisibility(View.VISIBLE);
+        swipeRefresh.setRefreshing(true);
         Model.instance.getAllPosts((list)->{
             data = list;
             adapter.notifyDataSetChanged();
-            progressBar.setVisibility(View.GONE);
+            swipeRefresh.setRefreshing(false);
         });
     }
 

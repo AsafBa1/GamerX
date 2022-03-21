@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.gamerx.Model.Model;
 import com.example.gamerx.Model.Post;
 
+import java.util.Random;
+
 public class NewPost extends Fragment {
     EditText titleEt;
     EditText bodyEt;
@@ -47,7 +49,11 @@ public class NewPost extends Fragment {
     private void save() {
         progressBar.setVisibility(View.VISIBLE);
         saveBtn.setEnabled(false);
-        String id = postId.getText().toString();
+        Random r = new Random();
+        String sp = r.toString();
+        String[] separated = sp.split("@");
+        String id = separated[1];
+        //String id = postId.getText().toString();
         String title = titleEt.getText().toString();
         String body = bodyEt.getText().toString();
         Log.d("TAG","saved name:" + title);

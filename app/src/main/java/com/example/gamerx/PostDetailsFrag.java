@@ -15,6 +15,9 @@ import com.example.gamerx.Model.Post;
 
 public class PostDetailsFrag extends Fragment {
 String postId,posTitle;
+TextView IdTv;
+TextView titleTv;
+TextView bodyTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,14 +26,18 @@ String postId,posTitle;
         View view = inflater.inflate(R.layout.fragment_post_details, container, false);
         postId = PostDetailsFragArgs.fromBundle(getArguments()).getPostid();
         posTitle = PostDetailsFragArgs.fromBundle(getArguments()).getPostTitle();
-        Post post = Model.instance.getPostById(postId);
+        Model.instance.getPostById(postId, new Model.GetPostById() {
+            @Override
+            public void onComplete(Post post) {
+                IdTv.setText(post.getTtitleId());
+                titleTv.setText(post.getTitle());
+            }
+        });
 
-        TextView IdTv = view.findViewById(R.id.det_post_id);
-        TextView titleTv = view.findViewById(R.id.title_det_post);
-        TextView bodyTv = view.findViewById(R.id.body_det_post);
+        IdTv = view.findViewById(R.id.det_post_id);
+        titleTv = view.findViewById(R.id.title_det_post);
+        bodyTv = view.findViewById(R.id.body_det_post);
 
-        IdTv.setText(post.getTtitleId());
-        titleTv.setText(post.getTitle());
 
 
         return view;
