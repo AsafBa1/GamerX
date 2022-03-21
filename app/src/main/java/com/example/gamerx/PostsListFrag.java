@@ -1,9 +1,12 @@
 package com.example.gamerx;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,10 +32,17 @@ import java.util.List;
 
 
 public class PostsListFrag extends Fragment {
-    List<Post> data;
+    PostsListFragViewModel viewModel;
     Button backBtn;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(PostsListFragViewModel.class);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,8 +67,8 @@ public class PostsListFrag extends Fragment {
         adapter.setOnItemClickListener(new PostsListFrag.OnItemClickListener() {
             @Override
             public void onItemClick(View v ,int position) {
-                String postId = data.get(position).getTtitleId();
-                String posTitle = data.get(position).getTitle();
+                String postId = viewModel.getData().getValue().get(position).getTtitleId();
+                String posTitle = viewModel.getData().getValue().get(position).getTitle();
                 Navigation.findNavController(v).navigate(PostsListFragDirections.actionPostsListFrag2ToPostDetailsFrag2(posTitle,postId));
 
             }
@@ -69,17 +79,13 @@ public class PostsListFrag extends Fragment {
         });
 
         setHasOptionsMenu(true);
-        refresh();
+        viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
         return view;
     }
 
     private void refresh() {
-        swipeRefresh.setRefreshing(true);
-        Model.instance.getAllPosts((list)->{
-            data = list;
-            adapter.notifyDataSetChanged();
-            swipeRefresh.setRefreshing(false);
-        });
+          adapter.notifyDataSetChanged();
+          swipeRefresh.setRefreshing(false);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -118,7 +124,7 @@ public class PostsListFrag extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull PostsListFrag.MyViewHolder holder, int position) {
-            Post post = data.get(position);
+            Post post = viewModel.getData().getValue().get(position);
             holder.titleTv.setText(post.getTitle());
             holder.postIdTv.setText(post.getTtitleId());
             holder.infoTv.setText(post.getMbody());
@@ -126,10 +132,10 @@ public class PostsListFrag extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(data == null){
+            if(viewModel.getData().getValue() == null){
                 return 0;
             }
-            return data.size();
+            return viewModel.getData().getValue().size();
         }
     }
 

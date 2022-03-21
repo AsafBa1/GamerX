@@ -24,7 +24,11 @@ import java.util.Map;
 public class ModelFireBase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public void getAllPosts(Model.GetAllPostsListener listener){
+    public interface GetAllPostsListener{
+        void onComplete(List<Post> list);
+    }
+
+    public void getAllPosts(GetAllPostsListener listener){
             db.collection(Post.COLLECTION_NAME)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

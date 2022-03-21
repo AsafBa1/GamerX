@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -20,12 +22,24 @@ public class Model {
     private Model(){ }
 
 
-   public interface GetAllPostsListener{
-        void onComplete(List<Post> list);
-   }
+   //public interface GetAllPostsListener{
+       // void onComplete(List<Post> list);
+  // }
 
-    public void getAllPosts(GetAllPostsListener listener){
-        modelFireBase.getAllPosts(listener);
+    MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
+    public LiveData<List<Post>> getAll(){
+        if(postsList.getValue() == null){
+            refreshPostList();}
+        return postsList;
+    }
+
+    public void refreshPostList(){
+        modelFireBase.getAllPosts(new ModelFireBase.GetAllPostsListener() {
+            @Override
+            public void onComplete(List<Post> list) {
+                postsList.setValue(list);
+            }
+        });
     }
 
     public interface AddPostListener{
