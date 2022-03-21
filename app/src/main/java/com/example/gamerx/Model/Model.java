@@ -18,13 +18,25 @@ public class Model {
     Executor executor =Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
+    public enum PostListLoadingState{
+        loading,
+        loaded
+    }
 
-    private Model(){ }
+
+    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData<PostListLoadingState>();
+    public MutableLiveData<PostListLoadingState> getPostListLoadingState() {
+        return postListLoadingState;
+    }
 
 
-   //public interface GetAllPostsListener{
-       // void onComplete(List<Post> list);
-  // }
+
+
+
+    private Model(){
+        postListLoadingState.setValue(PostListLoadingState.loaded);
+    }
+
 
     MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
     public LiveData<List<Post>> getAll(){
@@ -34,10 +46,12 @@ public class Model {
     }
 
     public void refreshPostList(){
+        postListLoadingState.setValue(PostListLoadingState.loading);
         modelFireBase.getAllPosts(new ModelFireBase.GetAllPostsListener() {
             @Override
             public void onComplete(List<Post> list) {
                 postsList.setValue(list);
+                postListLoadingState.setValue(PostListLoadingState.loaded);
             }
         });
     }

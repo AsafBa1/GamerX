@@ -51,12 +51,7 @@ public class PostsListFrag extends Fragment {
 
 
         swipeRefresh = view.findViewById(R.id.list_swipe);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
         RecyclerView list = view.findViewById(R.id.posts_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,6 +76,17 @@ public class PostsListFrag extends Fragment {
 
         setHasOptionsMenu(true);
         viewModel.getData().observe(getViewLifecycleOwner(), posts -> refresh());
+        swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
+        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), new Observer<Model.PostListLoadingState>() {
+            @Override
+            public void onChanged(Model.PostListLoadingState postListLoadingState) {
+                if(postListLoadingState == Model.PostListLoadingState.loading){
+                    swipeRefresh.setRefreshing(true);
+                }else{
+                    swipeRefresh.setRefreshing(false);
+                }
+            }
+        });
         return view;
     }
 
