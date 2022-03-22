@@ -4,6 +4,8 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,10 +21,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.gamerx.Model.Model;
 import com.example.gamerx.Model.Post;
 
+import java.io.InputStream;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -71,6 +75,7 @@ public class NewPost extends Fragment {
 
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_IMAGE_PICK = 2;
     Bitmap imageBitmap;
 
     private void openCamera() {
@@ -80,6 +85,9 @@ public class NewPost extends Fragment {
 
 
     private void openGallery() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent,REQUEST_IMAGE_PICK);
     }
 
     @Override
@@ -90,6 +98,18 @@ public class NewPost extends Fragment {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 avatar.setImageBitmap(imageBitmap);
+            }
+        }else if(requestCode == REQUEST_IMAGE_PICK){
+            if(requestCode == RESULT_OK){
+                try{
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    avatar.setImageBitmap(imageBitmap);
+                }catch(Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"Failed to select image",Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
