@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +17,19 @@ import java.util.Random;
 public class Post {
 
 
+    //String key = "PostsLastUpdateDate";
     final public static String COLLECTION_NAME = "Posts";
     @PrimaryKey
     @NonNull
     String Id = "";
     String Title = "";
     String Body = "";
+
+    public void setUpdateDate(Long updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    Long updateDate = new Long(0);
 
 
     public Post(){}
@@ -58,6 +67,7 @@ public class Post {
         json.put("id",Id);
         json.put("title",Title);
         json.put("body",Body);
+        json.put("updateDate",FieldValue.serverTimestamp());
         return json;
     }
 
@@ -65,8 +75,16 @@ public class Post {
         String id = (String) json.get("id");
         String title = (String) json.get("title");
         String body = (String) json.get("body");
+        Timestamp ts = (Timestamp)json.get("updateDate");
+        Long updateDate = null;
+        updateDate = ts.getSeconds();
 
         Post post = new Post(id,title,body);
+        post.setUpdateDate(updateDate);
         return post;
+    }
+    // Todo...
+    public Long getUpdateDate() {
+        return updateDate;
     }
 }

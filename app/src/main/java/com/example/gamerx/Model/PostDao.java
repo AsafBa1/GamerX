@@ -1,6 +1,5 @@
 package com.example.gamerx.Model;
 
-import androidx.annotation.NonNull;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -10,13 +9,15 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public abstract class PostDao {
+public interface  PostDao {
+
+
     @Query("select * from Post")
-    abstract List<Post> getAll();
+     List<Post> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract void insertAll(Post... posts);
+     void insertAll(Post... posts);
 
     @Delete
-    abstract void delete(Post posts);
+     void delete(Post posts);
 }

@@ -1,11 +1,15 @@
 package com.example.gamerx.Model;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.gamerx.MyApplication;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -37,7 +41,7 @@ public class Model {
         postListLoadingState.setValue(PostListLoadingState.loaded);
     }
 
-
+    //Post postKey;
     MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
     public LiveData<List<Post>> getAll(){
         if(postsList.getValue() == null){
@@ -46,12 +50,36 @@ public class Model {
     }
 
     public void refreshPostList(){
-        postListLoadingState.setValue(PostListLoadingState.loading);
-        modelFireBase.getAllPosts(new ModelFireBase.GetAllPostsListener() {
+
+        //get last local update date
+        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate",0);
+
+        //firebase get all updates since lastLocalUpdate
+        modelFireBase.getAllPosts(lastUpdateDate,new ModelFireBase.GetAllPostsListener() {
             @Override
             public void onComplete(List<Post> list) {
-                postsList.setValue(list);
-                postListLoadingState.setValue(PostListLoadingState.loaded);
+               //add all record to local db
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Long lud = new Long(0);
+                        Log.d("TAG","fb returned " + list.size());
+                        for(Post post:list){
+                            AppLocalDb.db.postDao().insertAll();
+
+                            if(lud < post.getUpdateDate()){
+                                lud = post.getUpdateDate();
+                            }
+                        }
+
+                        MyApplication.getContext().getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                                .edit().putLong("PostsLastUpdateDate",lud).commit();
+
+                        List<Post> pstList = AppLocalDb.db.postDao().getAll();
+                        postsList.postValue(pstList);
+                        postListLoadingState.postValue(PostListLoadingState.loaded);
+                    }
+                });
             }
         });
     }
