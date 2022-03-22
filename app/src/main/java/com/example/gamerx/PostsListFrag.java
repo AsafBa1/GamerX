@@ -22,11 +22,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gamerx.Model.Model;
 import com.example.gamerx.Model.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class PostsListFrag extends Fragment {
     Button backBtn;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+    ImageView avatar;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -105,6 +108,7 @@ public class PostsListFrag extends Fragment {
             postIdTv = itemView.findViewById(R.id.row_post_id);
             titleTv = itemView.findViewById(R.id.row_title);
             infoTv = itemView.findViewById(R.id.row_post_info);
+            avatar = itemView.findViewById(R.id.row_image);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -112,6 +116,17 @@ public class PostsListFrag extends Fragment {
                     listener.onItemClick(v,pos);
                 }
             });
+        }
+        public void bind(Post post){
+            titleTv.setText(post.getTitle());
+            postIdTv.setText(post.getTtitleId());
+            infoTv.setText(post.getMbody());
+            avatar.setImageResource(R.drawable.avatar);
+            if (post.getAvatarUrl() != null) {
+                Picasso.get()
+                        .load(post.getAvatarUrl())
+                        .into(avatar);
+            }
         }
     }
     interface OnItemClickListener{void onItemClick(View v,int position);}
@@ -132,9 +147,11 @@ public class PostsListFrag extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull PostsListFrag.MyViewHolder holder, int position) {
             Post post = viewModel.getData().getValue().get(position);
+            holder.bind(post);
             holder.titleTv.setText(post.getTitle());
             holder.postIdTv.setText(post.getTtitleId());
             holder.infoTv.setText(post.getMbody());
+
         }
 
         @Override

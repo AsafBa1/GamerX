@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -21,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.gamerx.Model.Model;
 import com.example.gamerx.Model.Post;
@@ -66,7 +63,7 @@ public class NewPost extends Fragment {
         galleryBtn.setOnClickListener(v -> {
             openGallery();
         });
-        avatar = view.findViewById(R.id.new_post_imagv);
+        avatar = view.findViewById(R.id.det_post_imagv);
 
         //setHasOptionsMenu(true);
         return view;

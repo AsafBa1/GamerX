@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/new_post_imagv"
+        android:id="@+id/det_post_imagv"
         android:layout_width="282dp"
         android:layout_height="139dp"
         android:layout_marginTop="39dp"
@@ -50,7 +50,7 @@
         android:ems="10"
         android:hint="Post Title"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/new_post_imagv"
+        app:layout_constraintBottom_toTopOf="@+id/det_post_imagv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_det_title" />
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_imagv" />
+        app:layout_constraintTop_toBottomOf="@+id/det_post_imagv" />
 
     <EditText
         android:id="@+id/new_post_id"
@@ -100,7 +100,7 @@
         android:layout_marginTop="296dp"
         android:src="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toTopOf="@+id/new_post_body"
-        app:layout_constraintEnd_toStartOf="@+id/new_post_imagv"
+        app:layout_constraintEnd_toStartOf="@+id/det_post_imagv"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -115,7 +115,7 @@
         app:layout_constraintBottom_toTopOf="@+id/new_post_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/new_post_imagv"
+        app:layout_constraintStart_toEndOf="@+id/det_post_imagv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
