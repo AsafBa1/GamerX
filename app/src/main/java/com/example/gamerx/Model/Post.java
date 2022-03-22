@@ -25,6 +25,14 @@ public class Post {
     String Title = "";
     String Body = "";
 
+    public String getUserId() {
+        return UserId;
+    }
+
+    String UserId = "";
+
+    String avatarUrl;
+
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
     }
@@ -68,6 +76,7 @@ public class Post {
         json.put("title",Title);
         json.put("body",Body);
         json.put("updateDate",FieldValue.serverTimestamp());
+        json.put("avatarUrl",avatarUrl);
         return json;
     }
 
@@ -78,13 +87,21 @@ public class Post {
         Timestamp ts = (Timestamp)json.get("updateDate");
         Long updateDate = null;
         updateDate = ts.getSeconds();
-
+        String url = (String)json.get("avatarUrl");
         Post post = new Post(id,title,body);
         post.setUpdateDate(updateDate);
+        post.setAvatarUrl(url);
         return post;
     }
     // Todo...
     public Long getUpdateDate() {
         return updateDate;
+    }
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String url) {
+        this.avatarUrl = url;
     }
 }

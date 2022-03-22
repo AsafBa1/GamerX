@@ -7,6 +7,7 @@ import java.util.Map;
 public class User {
     public static final String COLLECTION_NAME = "users";
     public String Username, email;
+    private String avatarUrl;
 
     public User() {
 
@@ -23,6 +24,10 @@ public class User {
 
     public Map<String, Object> toJson() {
         return null;
+    }
+
+   public void setUserAvatarUrl(String url) {
+       this.avatarUrl = url;
     }
 }
 

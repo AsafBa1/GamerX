@@ -1,6 +1,7 @@
 package com.example.gamerx.Model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -22,6 +23,17 @@ public class Model {
     Executor executor =Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
+public interface SaveImageListener{
+void onComplete(String url);
+}
+    public void savePostImage(Bitmap imageBitmap, String imageName,SaveImageListener listener) {
+    modelFireBase.savePostImage(imageBitmap,imageName,listener);
+    }
+
+    public void saveUserImage(Bitmap imageBitmap, String imageName,SaveImageListener listener) {
+        modelFireBase.saveUserImage(imageBitmap,imageName,listener);
+    }
+
     public enum PostListLoadingState{
         loading,
         loaded
@@ -41,11 +53,10 @@ public class Model {
         postListLoadingState.setValue(PostListLoadingState.loaded);
     }
 
-    //Post postKey;
+
     MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
     public LiveData<List<Post>> getAll(){
-        if(postsList.getValue() == null){
-            refreshPostList();}
+        if(postsList.getValue() == null){ refreshPostList();}
         return postsList;
     }
 
@@ -65,8 +76,7 @@ public class Model {
                         Long lud = new Long(0);
                         Log.d("TAG","fb returned " + list.size());
                         for(Post post:list){
-                            AppLocalDb.db.postDao().insertAll();
-
+                            AppLocalDb.db.postDao().insertAll(post);
                             if(lud < post.getUpdateDate()){
                                 lud = post.getUpdateDate();
                             }
@@ -88,7 +98,13 @@ public class Model {
         void onComplete();
     }
     public void addPost(Post post,AddPostListener listener){
-        modelFireBase.addPost(post,listener);
+        modelFireBase.addPost(post, new AddPostListener() {
+            @Override
+            public void onComplete() {
+                refreshPostList();
+                listener.onComplete();
+            }
+        });
     }
 
     public interface GetPostById{
@@ -103,5 +119,18 @@ public class Model {
     }
     public void addUser(User user, AddUserListener listener){
         modelFireBase.addUser(user,listener);
+    }
+    public interface EditPostListener{
+        void onComplete();
+    }
+
+    public void editPost(Post post,EditPostListener listener){
+        modelFireBase.editPost(post, new EditPostListener() {
+            @Override
+            public void onComplete() {
+                refreshPostList();
+                listener.onComplete();
+            }
+        });
     }
 }

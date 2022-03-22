@@ -1,15 +1,24 @@
 package com.example.gamerx.Model;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,12 +33,14 @@ public class ModelFireBase {
         db.setFirestoreSettings(settings);
     }
 
+
     public interface GetAllPostsListener{
         void onComplete(List<Post> list);
     }
 
     public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener){
             db.collection(Post.COLLECTION_NAME)
+                    .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -66,18 +77,16 @@ public class ModelFireBase {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        Post post = null;
-                        if(task.isSuccessful() & task.getResult() != null){
-                           post = Post.create(task.getResult().getData());
+                        Post student = null;
+                        if (task.isSuccessful() & task.getResult()!= null){
+                            student = Post.create(task.getResult().getData());
                         }
-                        listener.onComplete(post);
-
+                        listener.onComplete(student);
                     }
-
                 });
     }
 
-    public void editPost(Post post){
+    public void editPost(Post post, Model.EditPostListener listener){
 
     }
 
@@ -90,4 +99,56 @@ public class ModelFireBase {
                 .addOnFailureListener(e -> listener.onComplete());
 
     }
+    /**
+     * Firebase Storage
+     */
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    public void savePostImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
+        StorageReference storageRef = storage.getReference();
+        StorageReference imgRef = storageRef.child("/Posts/" + imageName);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imgRef.putBytes(data);
+        uploadTask.addOnFailureListener(exception -> listener.onComplete(null))
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUrl = uri;
+                            listener.onComplete(downloadUrl.toString());
+                        });
+                    }
+                });
+
+    }
+
+    public void saveUserImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
+        StorageReference storageRef = storage.getReference();
+        StorageReference imgRef = storageRef.child("/UserProfile/" + imageName);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imgRef.putBytes(data);
+        uploadTask.addOnFailureListener(exception -> listener.onComplete(null))
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUrl = uri;
+                            listener.onComplete(downloadUrl.toString());
+                        });
+                    }
+                });
+
+    }
+    /**
+     * Authentication
+     */
 }

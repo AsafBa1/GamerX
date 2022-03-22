@@ -13,11 +13,11 @@ public interface  PostDao {
 
 
     @Query("select * from Post")
-     List<Post> getAll();
+    List<Post> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     void insertAll(Post... posts);
+    void insertAll(Post... posts);
 
     @Delete
-     void delete(Post posts);
+    void delete(Post posts);
 }
