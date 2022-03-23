@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">89669998285-ucos67nri7qnatp8buf0c7f19gfgrd0a.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">89669998285</string>
+    <string name="google_api_key" translatable="false">AIzaSyBpdYWneLtg4fVKErLi8RPme4lHKTTJiQE</string>
+    <string name="google_app_id" translatable="false">1:89669998285:android:61982002cdde373463fb84</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBpdYWneLtg4fVKErLi8RPme4lHKTTJiQE</string>
+    <string name="google_storage_bucket" translatable="false">gamerx-d1247.appspot.com</string>
+    <string name="project_id" translatable="false">gamerx-d1247</string>
+</resources>
