@@ -2,15 +2,34 @@ package com.example.gamerx.Model;
 
 import android.widget.EditText;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class User {
     public static final String COLLECTION_NAME = "users";
+    public String userId;
     public String Username, email;
-    private String avatarUrl;
+    private String avatarUserUrl;
+
+    public String getAvatarUserUrl() {
+        return avatarUserUrl;
+    }
+
+    public void setAvatarUserUrl(String avatarUserUrl) {
+        this.avatarUserUrl = avatarUserUrl;
+    }
 
     public User() {
 
+    }
+
+    public User(String id, String username, String email) {
+        this.userId = id;
+        this.Username = username;
+        this.email = email;
     }
 
     public User(String username, String email) {
@@ -18,16 +37,19 @@ public class User {
         this.email = email;
     }
 
-    public static String getUserId() {
-        return null;
+    public String getUserId() {
+        return userId;
     }
 
     public Map<String, Object> toJson() {
-        return null;
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("id", userId);
+        json.put("username", Username);
+        json.put("email", email);
+        json.put("avatarUrl", avatarUserUrl);
+        return json;
+
     }
 
-   public void setUserAvatarUrl(String url) {
-       this.avatarUrl = url;
-    }
 }
 

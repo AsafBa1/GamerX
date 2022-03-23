@@ -68,7 +68,7 @@ public class PostsListFrag extends Fragment {
                 String postId = viewModel.getData().getValue().get(position).getTtitleId();
                 String posTitle = viewModel.getData().getValue().get(position).getTitle();
                 String postbody = viewModel.getData().getValue().get(position).getMbody();
-                Navigation.findNavController(v).navigate(PostsListFragDirections.actionPostsListFrag2ToPostDetailsFrag2(posTitle,postId,postbody));
+                Navigation.findNavController(v).navigate(PostsListFragDirections.actionPostsListFragToPostDetailsFrag(posTitle,postId,postbody));
 
             }
         });

@@ -26,7 +26,7 @@ public class MenuFrag extends Fragment {
 
 
         toList = view.findViewById(R.id.menu_post_btn);
-        toList.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menuFrag2_to_postsListFrag2));
+        toList.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menuFrag_to_postsListFrag));
         setHasOptionsMenu(true);
         return view;
     }

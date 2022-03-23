@@ -52,7 +52,7 @@ public class NewPost extends Fragment {
         postId = view.findViewById(R.id.new_post_id);
         titleEt = view.findViewById(R.id.new_title_post);
         bodyEt = view.findViewById(R.id.new_post_body);
-        saveBtn = view.findViewById(R.id.save_new_post);
+        saveBtn = view.findViewById(R.id.det_edit_btn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +67,7 @@ public class NewPost extends Fragment {
         galleryBtn.setOnClickListener(v -> {
             openGallery();
         });
-        avatar = view.findViewById(R.id.det_post_imagv);
+        avatar = view.findViewById(R.id.new_post_imagv);
 
         //setHasOptionsMenu(true);
         return view;

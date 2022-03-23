@@ -3,72 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/menuFrag2">
+    app:startDestination="@id/profileFrag">
     <fragment
-        android:id="@+id/menuFrag2"
-        android:name="com.example.gamerx.MenuFrag"
-        android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        android:id="@+id/profileFrag"
+        android:name="com.example.gamerx.ProfileFrag"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_menuFrag2_to_postsListFrag2"
-            app:destination="@id/postsListFrag2" />
-        <action
-            android:id="@+id/action_menuFrag2_to_profileFrag2"
-            app:destination="@id/profile_menu" />
-        <action
-            android:id="@+id/action_menuFrag2_to_login"
-            app:destination="@id/login" />
+            android:id="@+id/action_profileFrag_to_menuFrag"
+            app:destination="@id/menuFrag" />
     </fragment>
     <fragment
-        android:id="@+id/postsListFrag2"
+        android:id="@+id/menuFrag"
+        android:name="com.example.gamerx.MenuFrag"
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFrag_to_postsListFrag"
+            app:destination="@id/postsListFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/postsListFrag"
         android:name="com.example.gamerx.PostsListFrag"
-        android:label="List of Posts"
+        android:label="Posts list"
         tools:layout="@layout/fragment_posts_list">
         <action
-            android:id="@+id/action_postsListFrag2_to_postDetailsFrag2"
-            app:destination="@id/postDetailsFrag2" />
-        <action
-            android:id="@+id/action_postsListFrag2_to_newPost2"
+            android:id="@+id/action_postsListFrag_to_newPost"
             app:destination="@id/add_menu" />
+        <action
+            android:id="@+id/action_postsListFrag_to_postDetailsFrag"
+            app:destination="@id/postDetailsFrag" />
     </fragment>
-    <fragment
-        android:id="@+id/profile_menu"
-        android:name="com.example.gamerx.ProfileFrag"
-        android:label="Profile Settings"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/add_menu"
         android:name="com.example.gamerx.NewPost"
         android:label="New Post"
         tools:layout="@layout/fragment_new_post" />
     <fragment
-        android:id="@+id/postDetailsFrag2"
-        android:name="com.example.gamerx.PostDetailsFrag"
-        android:label="Post Detailes"
-        tools:layout="@layout/fragment_post_details">
-        <action
-            android:id="@+id/action_postDetailsFrag2_to_editPost2"
-            app:destination="@id/editPost2" />
-        <argument
-            android:name="PostTitle"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="postid"
-            app:argType="string" />
-        <argument
-            android:name="PostBody"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/editPost2"
+        android:id="@+id/editPost"
         android:name="com.example.gamerx.EditPost"
         android:label="Edit Post"
-        tools:layout="@layout/fragment_edit_post" /><action android:id="@+id/action_global_menuFrag2" app:destination="@id/menuFrag2"/>
-    <action android:id="@+id/action_global_profileFrag2" app:destination="@id/profile_menu" />
-    <activity
-        android:id="@+id/login"
-        android:name="com.example.gamerx.Login"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/fragment_edit_post" />
+    <fragment
+        android:id="@+id/postDetailsFrag"
+        android:name="com.example.gamerx.PostDetailsFrag"
+        android:label="Post"
+        tools:layout="@layout/fragment_post_details">
+        <argument
+            android:name="PostTitle"
+            app:argType="string" />
+        <argument
+            android:name="PostId"
+            app:argType="string" />
+        <argument
+            android:name="Postbody"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_postDetailsFrag_to_editPost"
+            app:destination="@id/editPost" />
+    </fragment>
 </navigation>

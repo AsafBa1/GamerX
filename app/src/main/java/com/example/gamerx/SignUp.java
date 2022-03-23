@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gamerx.Model.ModelFireBase;
 import com.example.gamerx.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +28,7 @@ public class SignUp extends AppCompatActivity {
     private TextView editUser,editEmail,editPass;
     private ProgressBar progressbar;
     private Button signBtn;
+    ModelFireBase modelFireBase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
 
                 registerUser();
+
                 Intent intent = new Intent(SignUp.this,Login.class);
                 startActivity(intent);
             }

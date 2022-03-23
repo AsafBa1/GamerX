@@ -86,7 +86,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //direct to user profile
+                    Intent intent = new Intent(Login.this,BaseActivity.class);
+                    startActivity(intent);
                 }else{
                     Toast.makeText(Login.this,"Failed to login! Check your Credentials",Toast.LENGTH_LONG).show();
 

@@ -93,7 +93,7 @@ public class ModelFireBase {
     public void addUser(User user, Model.AddUserListener listener){
        Map<String, Object> json = user.toJson();
         db.collection(User.COLLECTION_NAME)
-                .document(User.getUserId())
+                .document(user.getUserId())
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
