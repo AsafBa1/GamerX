@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.gamerx.BaseActivity;
 import com.example.gamerx.R;
@@ -31,6 +32,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
+        if(mAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), BaseActivity.class));
+            finish();
+        }
+
         emailEt = findViewById(R.id.login_email);
         passwordEt = findViewById(R.id.login_pass);
         progressBar = findViewById(R.id.login_pb);
@@ -48,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEt.getText().toString().trim();
                 String password = passwordEt.getText().toString().trim();
-
 
                 if(TextUtils.isEmpty(email)){
                     emailEt.setError("Email is Required");
@@ -69,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             startActivity(new Intent(getApplicationContext(), BaseActivity.class));
 
+                        }else{
+                            Toast.makeText(LoginActivity.this,"Wrong Password or email" + task.getException().getMessage(),Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -37,10 +37,7 @@ ProgressBar progressBar;
         passwordEd = findViewById(R.id.reg_password);
         progressBar =findViewById(R.id.registr_pb);
 
-        if(mAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), BaseActivity.class));
-            finish();
-        }
+
         registerBtn = findViewById(R.id.register_btn);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
