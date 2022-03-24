@@ -17,6 +17,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Model {
+    User user = null;
     ModelFireBase modelFireBase = new ModelFireBase();
     public static final Model instance = new Model();
     public Executor executor =Executors.newFixedThreadPool(1);
@@ -28,6 +29,8 @@ public class Model {
     public void editPost(Post post) {
         modelFireBase.addPost(post, this::refreshPostList);
     }
+
+
 
     public interface SaveImageListener{
 void onComplete(String url);
@@ -138,6 +141,8 @@ void onComplete(String url);
                 listener.onComplete();
             }
         });
+    }
+    public void registerUser(String Email, String name,ModelFireBase.RegisterListener listener) {
     }
 
 }
