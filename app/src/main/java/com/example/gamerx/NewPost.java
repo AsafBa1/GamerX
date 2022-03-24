@@ -105,7 +105,8 @@ public class NewPost extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    avatar.setImageBitmap(imageBitmap);
+                    avatar.setImageBitmap(imageBitmap
+                    );
                 }catch(Exception e){
                     e.printStackTrace();
                     Toast.makeText(getContext(),"Failed to select image",Toast.LENGTH_LONG).show();
