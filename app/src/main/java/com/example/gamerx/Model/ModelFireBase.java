@@ -9,6 +9,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
@@ -25,6 +27,9 @@ import java.util.Map;
 
 public class ModelFireBase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
 
     public void ModelFirebase(){
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -32,6 +37,8 @@ public class ModelFireBase {
                 .build();
         db.setFirestoreSettings(settings);
     }
+
+
 
 
     public interface GetAllPostsListener{
@@ -103,7 +110,7 @@ public class ModelFireBase {
      * Firebase Storage
      */
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
+
 
     public void savePostImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
         StorageReference storageRef = storage.getReference();
@@ -151,4 +158,28 @@ public class ModelFireBase {
     /**
      * Authentication
      */
+    public boolean isSignedIn() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            getLoggedUser(currentUser.getEmail());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void getLoggedUser(String email) {
+       // db.collection("users").document(username).get().addOnCompleteListener(task -> {
+          //  if (task.isSuccessful()) {
+           //     String Name = (String) task.getResult().getData().get("name");
+            //    String Email = (String) task.getResult().getData().get("email");
+              //  String Id = (String) task.getResult().getData().get("Id");
+              //  String Address = (String) task.getResult().getData().get("address");
+               // String Phonenumber = (String) task.getResult().getData().get("phoneNumber");
+               // String avatarUrl = (String)task.getResult().getData().get("avatarUrl");
+               // User user = new User(Name, Email, Id, Address, Phonenumber,avatarUrl);
+               // Model.instance.setLoggedUser(user);
+         //   }
+      //  });
+    }
 }

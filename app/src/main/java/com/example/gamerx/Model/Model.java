@@ -20,10 +20,12 @@ public class Model {
     ModelFireBase modelFireBase = new ModelFireBase();
 
     public static final Model instance = new Model();
-    Executor executor =Executors.newFixedThreadPool(1);
-    Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+    public Executor executor =Executors.newFixedThreadPool(1);
+     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-public interface SaveImageListener{
+    public boolean isSignedIn() {return modelFireBase.isSignedIn(); }
+
+    public interface SaveImageListener{
 void onComplete(String url);
 }
     public void savePostImage(Bitmap imageBitmap, String imageName,SaveImageListener listener) {
