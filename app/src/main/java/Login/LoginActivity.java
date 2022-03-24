@@ -32,11 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-        if(mAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), BaseActivity.class));
-            finish();
-        }
-
         emailEt = findViewById(R.id.login_email);
         passwordEt = findViewById(R.id.login_pass);
         progressBar = findViewById(R.id.login_pb);
@@ -48,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         loginBtn = findViewById(R.id.login_login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,8 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GamerX">
         <activity
+            android:name=".IntroActivity"
+            android:exported="false" />
+        <activity
             android:name=".BaseActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="Login.LoginActivity"
             android:exported="true">
@@ -24,8 +27,7 @@
         </activity>
         <activity
             android:name="Login.RegisterActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
