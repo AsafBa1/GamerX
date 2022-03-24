@@ -24,13 +24,8 @@ public class Post {
     String Id = "";
     String Title = "";
     String Body = "";
-
-    public String getUserId() {
-        return UserId;
-    }
-
-    String UserId = "";
-
+    String writerId;
+    Boolean DisplayPost;
     String avatarUrl;
 
     public void setUpdateDate(Long updateDate) {
@@ -77,6 +72,9 @@ public class Post {
         json.put("body",Body);
         json.put("updateDate",FieldValue.serverTimestamp());
         json.put("avatarUrl",avatarUrl);
+        json.put("writerId", writerId);
+        json.put("displayPost", DisplayPost);
+
         return json;
     }
 
@@ -104,4 +102,16 @@ public class Post {
     public void setAvatarUrl(String url) {
         this.avatarUrl = url;
     }
+    public void setWriterId(String writerId) {
+        this.writerId = writerId;
+    }
+
+    public Boolean getDisplayPost() {
+        return DisplayPost;
+    }
+
+    public void setDisplayPost(Boolean displayPost) {
+        DisplayPost = displayPost;
+    }
+
 }

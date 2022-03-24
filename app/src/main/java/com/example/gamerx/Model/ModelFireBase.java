@@ -31,7 +31,7 @@ public class ModelFireBase {
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
-    public void ModelFirebase(){
+    public void ModelFirebase() {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build();
@@ -39,36 +39,34 @@ public class ModelFireBase {
     }
 
 
-
-
-    public interface GetAllPostsListener{
+    public interface GetAllPostsListener {
         void onComplete(List<Post> list);
     }
 
-    public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener){
-            db.collection(Post.COLLECTION_NAME)
-                    .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            List<Post> list = new LinkedList<Post>();
-                            if(task.isSuccessful()){
-                               for(QueryDocumentSnapshot doc : task.getResult()){
-                                   Post post = Post.create(doc.getData());
-                                   if(post != null){
-                                       list.add(post);
-                                   }
-                               }
+    public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
+        db.collection(Post.COLLECTION_NAME)
+                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<Post> list = new LinkedList<Post>();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                Post post = Post.create(doc.getData());
+                                if (post != null) {
+                                    list.add(post);
+                                }
                             }
-                            listener.onComplete(list);
                         }
+                        listener.onComplete(list);
+                    }
 
-                    });
+                });
 
     }
 
-    public void addPost(Post post,Model.AddPostListener listener){
+    public void addPost(Post post, Model.AddPostListener listener) {
         Map<String, Object> json = post.toJson();
         db.collection(Post.COLLECTION_NAME)
                 .document(post.getTtitleId())
@@ -85,7 +83,7 @@ public class ModelFireBase {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         Post student = null;
-                        if (task.isSuccessful() & task.getResult()!= null){
+                        if (task.isSuccessful() & task.getResult() != null) {
                             student = Post.create(task.getResult().getData());
                         }
                         listener.onComplete(student);
@@ -93,12 +91,12 @@ public class ModelFireBase {
                 });
     }
 
-    public void editPost(Post post, Model.EditPostListener listener){
+    public void editPost(Post post, Model.EditPostListener listener) {
 
     }
 
-    public void addUser(User user, Model.AddUserListener listener){
-       Map<String, Object> json = user.toJson();
+    public void addUser(User user, Model.AddUserListener listener) {
+        Map<String, Object> json = user.toJson();
         db.collection(User.COLLECTION_NAME)
                 .document(user.getUserId())
                 .set(json)
@@ -106,10 +104,10 @@ public class ModelFireBase {
                 .addOnFailureListener(e -> listener.onComplete());
 
     }
+
     /**
      * Firebase Storage
      */
-
 
 
     public void savePostImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
@@ -155,6 +153,7 @@ public class ModelFireBase {
                 });
 
     }
+
     /**
      * Authentication
      */
@@ -169,17 +168,32 @@ public class ModelFireBase {
     }
 
     private void getLoggedUser(String email) {
-       // db.collection("users").document(username).get().addOnCompleteListener(task -> {
-          //  if (task.isSuccessful()) {
-           //     String Name = (String) task.getResult().getData().get("name");
-            //    String Email = (String) task.getResult().getData().get("email");
-              //  String Id = (String) task.getResult().getData().get("Id");
-              //  String Address = (String) task.getResult().getData().get("address");
-               // String Phonenumber = (String) task.getResult().getData().get("phoneNumber");
-               // String avatarUrl = (String)task.getResult().getData().get("avatarUrl");
-               // User user = new User(Name, Email, Id, Address, Phonenumber,avatarUrl);
-               // Model.instance.setLoggedUser(user);
-         //   }
-      //  });
+        // db.collection("users").document(username).get().addOnCompleteListener(task -> {
+        //  if (task.isSuccessful()) {
+        //     String Name = (String) task.getResult().getData().get("name");
+        //    String Email = (String) task.getResult().getData().get("email");
+        //  String Id = (String) task.getResult().getData().get("Id");
+        //  String Address = (String) task.getResult().getData().get("address");
+        // String Phonenumber = (String) task.getResult().getData().get("phoneNumber");
+        // String avatarUrl = (String)task.getResult().getData().get("avatarUrl");
+        // User user = new User(Name, Email, Id, Address, Phonenumber,avatarUrl);
+        // Model.instance.setLoggedUser(user);
+        //   }
+        //  });
     }
+
+    public interface LogoutListener {
+        void onComplete();
+    }
+
+    public interface loginListener {
+        void onComplete(boolean bool);
+    }
+
+    public interface RegisterListener {
+        void onComplete(boolean bool);
+    }
+
+
+
 }

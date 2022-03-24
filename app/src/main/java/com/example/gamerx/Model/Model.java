@@ -18,12 +18,16 @@ import java.util.concurrent.Executors;
 
 public class Model {
     ModelFireBase modelFireBase = new ModelFireBase();
-
     public static final Model instance = new Model();
     public Executor executor =Executors.newFixedThreadPool(1);
      public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData<PostListLoadingState>();
 
     public boolean isSignedIn() {return modelFireBase.isSignedIn(); }
+
+    public void editPost(Post post) {
+        modelFireBase.addPost(post, this::refreshPostList);
+    }
 
     public interface SaveImageListener{
 void onComplete(String url);
@@ -42,7 +46,7 @@ void onComplete(String url);
     }
 
 
-    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData<PostListLoadingState>();
+
     public MutableLiveData<PostListLoadingState> getPostListLoadingState() {
         return postListLoadingState;
     }
@@ -135,4 +139,5 @@ void onComplete(String url);
             }
         });
     }
+
 }
