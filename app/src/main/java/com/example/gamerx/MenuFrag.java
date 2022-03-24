@@ -1,5 +1,6 @@
 package com.example.gamerx;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import Login.LoginActivity;
 
 
 public class MenuFrag extends Fragment {
@@ -49,6 +54,10 @@ public class MenuFrag extends Fragment {
             }
         }
         return true;
+    }
+    public void logout(View view){
+        FirebaseAuth.getInstance().signOut();
+       // startActivity(new Intent(MenuFrag,LoginActivity.class));
     }
 
 }
