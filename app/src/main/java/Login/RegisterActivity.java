@@ -41,7 +41,7 @@ ProgressBar progressBar;
             startActivity(new Intent(getApplicationContext(), BaseActivity.class));
             finish();
         }
-
+        registerBtn = findViewById(R.id.register_btn);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

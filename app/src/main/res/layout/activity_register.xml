@@ -7,7 +7,7 @@
     tools:context="Login.RegisterActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/register_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
